@@ -22,4 +22,14 @@ class Array_Problems {
     public boolean has_duplicates_length(int[] nums) {
         return Arrays.stream(nums).distinct().count() < nums.length;
     }
+
+    public boolean has_duplicates_sorted(int[] nums) {
+        Arrays.sort(nums);
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] == nums[i - 1]) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
