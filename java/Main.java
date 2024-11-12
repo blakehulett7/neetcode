@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class Main {
@@ -31,5 +32,21 @@ class Array_Problems {
             }
         }
         return false;
+    }
+
+    public boolean is_anagram(String s, String t) {
+        if (s.length() != t.length()) {
+            return false;
+        }
+
+        var s_hash = new HashMap<Character, Integer>();
+        var t_hash = new HashMap<Character, Integer>();
+
+        for (int i = 0; i < s.length(); i++) {
+            s_hash.put(s.charAt(i), s_hash.getOrDefault(s.charAt(i), 0) + 1);
+            t_hash.put(t.charAt(i), t_hash.getOrDefault(t.charAt(i), 0) + 1);
+        }
+
+        return s_hash.equals(t_hash);
     }
 }
