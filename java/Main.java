@@ -61,6 +61,6 @@ class Array_Problems {
             seen.put(difference, i);
         }
 
-        return int[]{};
+        return new int[] {};
     }
 }
