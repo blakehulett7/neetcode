@@ -1,6 +1,8 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -62,5 +64,19 @@ class Array_Problems {
         }
 
         return new int[] {};
+    }
+
+    public List<List<String>> group_anagrams(String[] strings) {
+        var gram_hash = new HashMap<String, List<String>>();
+        for (String str : strings) {
+            var gram = new int[26];
+            for (char c : str.toCharArray()) {
+                gram[c - 'a']++;
+            }
+            String key = Arrays.toString(gram);
+            gram_hash.putIfAbsent(key, new ArrayList<>());
+            gram_hash.get(key).add(str);
+        }
+        return new ArrayList<>(gram_hash.values());
     }
 }
