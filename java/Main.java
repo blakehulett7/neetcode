@@ -56,9 +56,9 @@ class Array_Problems {
             int number = nums[i];
             int difference = target - number;
             if (seen.containsKey(difference)) {
-                return new int[] { i, seen.get(difference) };
+                return new int[] { seen.get(difference), i };
             }
-            seen.put(difference, i);
+            seen.put(number, i);
         }
 
         return new int[] {};
