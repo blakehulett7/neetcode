@@ -49,4 +49,18 @@ class Array_Problems {
 
         return s_hash.equals(t_hash);
     }
+
+    public int[] two_sum(int[] nums, int target) {
+        var seen = new HashMap<Integer, Integer>();
+        for (int i = 0; i < nums.length; i++) {
+            int number = nums[i];
+            int difference = target - number;
+            if (seen.containsKey(difference)) {
+                return new int[] { i, seen.get(difference) };
+            }
+            seen.put(difference, i);
+        }
+
+        return int[]{};
+    }
 }
