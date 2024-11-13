@@ -79,4 +79,38 @@ class Array_Problems {
         }
         return new ArrayList<>(gram_hash.values());
     }
+
+    public int[] top_k_frequent(int[] nums, int k) {
+        var counts = new HashMap<Integer, Integer>();
+        List<Integer>[] buckets = new List[nums.length + 1];
+
+        for (int i = 0; i < buckets.length; i++) {
+            buckets[i] = new ArrayList<>();
+        }
+
+        for (int num : nums) {
+            counts.put(num, counts.getOrDefault(num, 0) + 1);
+        }
+
+        for (int key : counts.keySet()) {
+            buckets[counts.get(key)].add(key);
+        }
+
+        var result = new int[k];
+        int idx = 0;
+        for (int i = nums.length - 1; idx < k; i--) {
+            var bucket = buckets[i];
+            if (bucket.size() == 0) {
+                continue;
+            }
+            for (int num : bucket) {
+                result[idx] = num;
+                idx++;
+                if (idx == k) {
+                    return result;
+                }
+            }
+        }
+        return result;
+    }
 }
