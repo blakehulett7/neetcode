@@ -113,4 +113,42 @@ class Array_Problems {
         }
         return result;
     }
+
+    public String encode(List<String> strs) {
+        if (strs.size() == 0) {
+            return "";
+        }
+
+        var encoded = new StringBuilder();
+        for (String str : strs) {
+            encoded.append(str.length()).append('#').append(str);
+        }
+
+        return encoded.toString();
+    }
+
+    public List<String> decode(String str) {
+        if (str.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        List<String> result = new ArrayList<>();
+        int idx = 0;
+
+        while (idx < str.length()) {
+            var size_string = new StringBuilder();
+            while (str.charAt(idx) != '#') {
+                size_string.append(str.charAt(idx));
+                idx++;
+            }
+            idx++;
+
+            int size = Integer.parseInt(size_string.toString());
+
+            result.add(str.substring(idx, idx + size));
+            idx += size;
+        }
+
+        return result;
+    }
 }
