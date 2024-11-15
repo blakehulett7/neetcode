@@ -60,6 +60,25 @@ public class Stacks {
             default -> 0;
         };
     }
+
+    public int[] daily_temperatures(int[] temperatures) {
+        var output = new int[temperatures.length];
+        var stack = new Stack<int[]>();
+
+        int i = 0;
+        while (i < temperatures.length) {
+            int temp = temperatures[i];
+            if (stack.isEmpty() || temp <= stack.peek()[0]) {
+                stack.push(new int[] { temp, i });
+                i++;
+                continue;
+            }
+            int popped_temp_idx = stack.pop()[1];
+            output[popped_temp_idx] = i - popped_temp_idx;
+        }
+
+        return output;
+    }
 }
 
 class Min_Stack {
