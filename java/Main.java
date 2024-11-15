@@ -205,4 +205,29 @@ class Array_Problems {
         }
         return true;
     }
+
+    public int longest_consecutive(int[] nums) {
+        int longest_sequence = 0;
+        var num_set = new HashSet<Integer>();
+        for (int num : nums) {
+            num_set.add(num);
+        }
+
+        for (int num : nums) {
+            int sequence = 1;
+            if (num_set.contains(num - 1)) {
+                continue;
+            }
+
+            while (num_set.contains(num + sequence)) {
+                sequence++;
+            }
+
+            if (longest_sequence < sequence) {
+                longest_sequence = sequence;
+            }
+        }
+
+        return longest_sequence;
+    }
 }
