@@ -3,6 +3,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
@@ -168,5 +169,40 @@ class Array_Problems {
         }
 
         return result;
+    }
+
+    public boolean is_valid_sudoku(char[][] board) {
+        var row_hash = new HashSet<Character>();
+        var column_hash = new HashMap<Integer, Set<Character>>();
+        var grid_hash = new HashMap<String, Set<Character>>();
+
+        for (int row = 0; row < board.length; row++) {
+            for (int column = 0; column < 9; column++) {
+                char num = board[row][column];
+                if (num == '.') {
+                    continue;
+                }
+
+                if (row_hash.contains(num)) {
+                    return false;
+                }
+                row_hash.add(num);
+
+                column_hash.putIfAbsent(column, new HashSet<>());
+                if (column_hash.get(column).contains(num)) {
+                    return false;
+                }
+                column_hash.get(column).add(num);
+
+                String grid_key = (row / 3) + "," + (column / 3);
+                grid_hash.putIfAbsent(grid_key, new HashSet<>());
+                if (grid_hash.get(grid_key).contains(num)) {
+                    return false;
+                }
+                grid_hash.get(grid_key).add(num);
+            }
+            row_hash = new HashSet<>();
+        }
+        return true;
     }
 }
