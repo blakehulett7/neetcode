@@ -29,6 +29,34 @@ public class Stacks {
 
         return true;
     }
+
+    public int eval_RPN(String[] tokens) {
+        var state = new Stack<Integer>();
+
+        for (String token : tokens) {
+            if (!"+-*/".contains(token)) {
+                state.push(Integer.parseInt(token));
+                continue;
+            }
+
+            int value_2 = state.pop();
+            int value_1 = state.pop();
+
+            state.push(evaluate(value_1, value_2, token));
+        }
+
+        return state.pop();
+    }
+
+    public int evaluate(int value_1, int value_2, String operator) {
+        return switch (operator) {
+            case "+" -> value_1 + value_2;
+            case "-" -> value_1 - value_2;
+            case "*" -> value_1 * value_2;
+            case "/" -> value_1 / value_2;
+            default -> 0;
+        };
+    }
 }
 
 class Min_Stack {
