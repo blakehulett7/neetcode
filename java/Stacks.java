@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Stack;
 
@@ -78,6 +79,30 @@ public class Stacks {
         }
 
         return output;
+    }
+
+    public int car_fleet(int target, int[] position, int[] speed) {
+        var cars = new int[position.length][2];
+        for (int i = 0; i < position.length; i++) {
+            cars[i][0] = position[i];
+            cars[i][1] = speed[i];
+        }
+        Arrays.sort(cars, (a, b) -> Integer.compare(b[0], a[0]));
+
+        var stack = new Stack<Double>();
+        for (int[] car : cars) {
+            double time = ((double) (target - car[0]) / car[1]);
+            if (stack.isEmpty()) {
+                stack.push(time);
+                continue;
+            }
+            if (time > stack.peek()) {
+                stack.push(time);
+                continue;
+            }
+        }
+
+        return stack.size();
     }
 }
 
