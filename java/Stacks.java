@@ -10,20 +10,23 @@ public class Stacks {
         var seen = new Stack<Character>();
 
         for (char c : s.toCharArray()) {
-            if (valid_closers.containsKey(c)) {
-                if (seen.empty()) {
-                    return false;
-                }
-                if (seen.peek() != valid_closers.get(c)) {
-                    return false;
-                }
-                seen.pop();
+            if (!valid_closers.containsKey(c)) {
+                seen.push(c);
                 continue;
             }
-            seen.push(c);
+
+            if (seen.isEmpty()) {
+                return false;
+            }
+
+            if (seen.peek() != valid_closers.get(c)) {
+                return false;
+            }
+
+            seen.pop();
         }
 
-        if (!seen.empty()) {
+        if (!seen.isEmpty()) {
             return false;
         }
 
