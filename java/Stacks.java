@@ -1,8 +1,6 @@
 import java.util.HashMap;
 import java.util.Stack;
 
-import sun.security.validator.ValidatorException;
-
 public class Stacks {
     public boolean is_valid(String s) {
         var valid_closers = new HashMap<Character, Character>();
