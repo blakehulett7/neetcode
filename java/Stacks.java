@@ -104,6 +104,47 @@ public class Stacks {
 
         return stack.size();
     }
+
+    public int largest_rectangle(int[] heights) {
+        int max_area = 0;
+        var stack = new Stack<int[]>();
+
+        int i = 0;
+        int idx_offset = 0;
+        while (i < heights.length) {
+            int height = heights[i];
+            if (stack.isEmpty()) {
+                stack.push(new int[] { i - idx_offset, height });
+                i++;
+                idx_offset = 0;
+                continue;
+            }
+            int prev_height = stack.peek()[1];
+            if (prev_height <= height) {
+                stack.push(new int[] { i - idx_offset, height });
+                i++;
+                idx_offset = 0;
+                continue;
+            }
+            int prev_idx = stack.pop()[0];
+            int prev_width = i - prev_idx;
+            int area = prev_height * prev_width;
+            if (max_area < area) {
+                max_area = area;
+            }
+            idx_offset = i - prev_idx;
+        }
+        while (!stack.isEmpty()) {
+            int idx = stack.peek()[0];
+            int height = stack.pop()[1];
+            int width = i - idx;
+            int area = height * width;
+            if (max_area < area) {
+                max_area = area;
+            }
+        }
+        return max_area;
+    }
 }
 
 class Min_Stack {
