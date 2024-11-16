@@ -8,6 +8,7 @@ import java.util.Set;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Christ is King!");
+        System.out.println(Character.toLowerCase(';'));
     }
 }
 
