@@ -33,5 +33,27 @@ public class TwoPointers {
                 c >= '0' && c <= '9');
     }
 
+    public int[] two_sum(int[] numbers, int target) {
+        int left_idx = 0;
+        int right_idx = numbers.length - 1;
 
+        while (left_idx < right_idx) {
+            int left_num = numbers[left_idx];
+            int right_num = numbers[right_idx];
+            int sum = left_num + right_num;
+
+            if (sum < target) {
+                left_idx++;
+                continue;
+            }
+            if (sum > target) {
+                right_idx--;
+                continue;
+            }
+
+            return new int[] { left_idx + 1, right_idx + 1 };
+        }
+
+        return new int[] {};
+    }
 }
