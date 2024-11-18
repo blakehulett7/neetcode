@@ -133,4 +133,39 @@ public class TwoPointers {
 
         return max_area;
     }
+
+    public int trapped(int[] height) {
+        int trapped_water = 0;
+        int left_idx = 0;
+        int left_max = 0;
+        int right_idx = height.length - 1;
+        int right_max = 0;
+
+        while (left_idx <= right_idx) {
+            if (left_max < right_max) {
+                int current_height = height[left_idx];
+                int water_collected = left_max - current_height;
+                if (water_collected > 0) {
+                    trapped_water += water_collected;
+                }
+                if (left_max < current_height) {
+                    left_max = current_height;
+                }
+                left_idx++;
+                continue;
+            }
+
+            int current_height = height[right_idx];
+            int water_collected = right_max - current_height;
+            if (water_collected > 0) {
+                trapped_water += water_collected;
+            }
+            if (right_max < current_height) {
+                right_max = current_height;
+            }
+            right_idx--;
+        }
+
+        return trapped_water;
+    }
 }
