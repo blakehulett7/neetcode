@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class TwoPointers {
     public boolean is_palindrome(String s) {
         int left_idx = 0;
@@ -55,5 +59,52 @@ public class TwoPointers {
         }
 
         return new int[] {};
+    }
+
+    public List<List<Integer>> three_sum(int[] nums) {
+        var result = new ArrayList<List<Integer>>();
+        Arrays.sort(nums);
+
+        for (int i = 0; i < nums.length; i++) {
+            int num = nums[i];
+            if (num > 0) {
+                break;
+            }
+            if (i != 0) {
+                if (num == nums[i - 1]) {
+                    continue;
+                }
+            }
+
+            int left_idx = i + 1;
+            int right_idx = nums.length - 1;
+
+            while (left_idx < right_idx) {
+                int left_num = nums[left_idx];
+                int right_num = nums[right_idx];
+                int sum = num + left_num + right_num;
+
+                if (sum < 0) {
+                    while (left_num == nums[left_idx]) {
+                        left_idx++;
+                    }
+                    continue;
+                }
+
+                if (sum > 0) {
+                    while (right_num == nums[right_idx]) {
+                        right_idx--;
+                    }
+                    continue;
+                }
+
+                result.add(Arrays.asList(num, left_num, right_num));
+
+                while (left_idx < right_idx && left_num == nums[left_idx]) {
+                    left_idx++;
+                }
+            }
+        }
+        return result;
     }
 }
