@@ -107,4 +107,30 @@ public class TwoPointers {
         }
         return result;
     }
+
+    public int max_area(int[] heights) {
+        int max_area = 0;
+        int left_idx = 0;
+        int right_idx = heights.length - 1;
+
+        while (left_idx < right_idx) {
+            int left_height = heights[left_idx];
+            int right_height = heights[right_idx];
+            int height = Math.min(left_height, right_height);
+            int width = right_idx - left_idx;
+            int area = height * width;
+
+            if (max_area < area) {
+                max_area = area;
+            }
+
+            if (left_height < right_height) {
+                left_idx++;
+                continue;
+            }
+            right_idx--;
+        }
+
+        return max_area;
+    }
 }
