@@ -7,9 +7,6 @@ import (
 
 func main() {
 	fmt.Println("Christ is King!")
-	encoded := encode([]string{"Christ", "is", "King"})
-	fmt.Println(encoded)
-	fmt.Println(decode(encoded))
 }
 
 func top_k_frequent(nums []int, k int) []int {
@@ -72,4 +69,47 @@ func product_except_self(nums []int) []int {
 		right_product *= nums[idx]
 	}
 	return result
+}
+
+func is_valid_sudoku(board [][]byte) bool {
+	col_hashes := map[int]map[rune]bool{}
+	grid_hashes := map[string]map[rune]bool{}
+	for row := range board {
+		row_hash := map[rune]bool{}
+
+		for column := 0; column < 9; column++ {
+			char := rune(board[row][column])
+			if char == '.' {
+				continue
+			}
+
+			seen_in_row := row_hash[char]
+			if seen_in_row {
+				return false
+			}
+			row_hash[char] = true
+
+			seen_in_column := col_hashes[column][char]
+			if seen_in_column {
+				return false
+			}
+			_, exists := col_hashes[column]
+			if !exists {
+				col_hashes[column] = map[rune]bool{}
+			}
+			col_hashes[column][char] = true
+
+			string_key := fmt.Sprintf("%d,%d", row/3, column/3)
+			seen_in_grid := grid_hashes[string_key][char]
+			if seen_in_grid {
+				return false
+			}
+			_, exists = grid_hashes[string_key]
+			if !exists {
+				grid_hashes[string_key] = map[rune]bool{}
+			}
+			grid_hashes[string_key][char] = true
+		}
+	}
+	return true
 }
