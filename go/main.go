@@ -58,3 +58,18 @@ func decode(str string) []string {
 	}
 	return decoded
 }
+
+func product_except_self(nums []int) []int {
+	result := make([]int, len(nums))
+	left_product := 1
+	for idx, num := range nums {
+		result[idx] = left_product
+		left_product *= num
+	}
+	right_product := 1
+	for idx := len(nums) - 1; idx >= 0; idx-- {
+		result[idx] *= right_product
+		right_product *= nums[idx]
+	}
+	return result
+}
